@@ -1,5 +1,6 @@
 package org.littleshoot.proxy.extras;
 
+import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.http.HttpRequest;
 import org.littleshoot.proxy.MitmManager;
 
@@ -27,4 +28,10 @@ public class SelfSignedMitmManager implements MitmManager {
     public SSLEngine clientSslEngineFor(HttpRequest httpRequest, SSLSession serverSslSession) {
         return selfSignedSslEngineSource.newSslEngine();
     }
+
+    @Override
+    public boolean useForRequest(HttpRequest httpRequest, ChannelHandlerContext ctx) {
+        return true;
+    }
+
 }

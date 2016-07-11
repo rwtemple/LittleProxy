@@ -217,7 +217,7 @@ public class ClientToProxyConnection extends ProxyConnection<HttpRequest> {
 
         // Set up our filters based on the original request. If the HttpFiltersSource returns null (meaning the request/response
         // should not be filtered), fall back to the default no-op filter source.
-        HttpFilters filterInstance = proxyServer.getFiltersSource().filterRequest(httpRequest, userName.get(), ctx);
+        HttpFilters filterInstance = proxyServer.getFiltersSource().filterRequest(httpRequest, ctx);
         if (filterInstance != null) {
             currentFilters = filterInstance;
         } else {
@@ -962,7 +962,7 @@ public class ClientToProxyConnection extends ProxyConnection<HttpRequest> {
         
         String userName = StringUtils.substringBefore(decodedString, ":");
         String password = StringUtils.substringAfter(decodedString, ":");
-        if (!authenticator.authenticate(userName, password)) {
+        if (!authenticator.authenticate(request, userName, password, ctx)) {
             writeAuthenticationRequired(authenticator.getRealm());
             return true;
         }

@@ -1,5 +1,6 @@
 package org.littleshoot.proxy;
 
+import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.http.HttpRequest;
 
 import javax.net.ssl.SSLEngine;
@@ -51,4 +52,6 @@ public interface MitmManager {
      * @return the SSLEngine used to connect to the client
      */
     SSLEngine clientSslEngineFor(HttpRequest httpRequest, SSLSession serverSslSession);
+
+    boolean useForRequest(HttpRequest httpRequest, ChannelHandlerContext ctx);
 }

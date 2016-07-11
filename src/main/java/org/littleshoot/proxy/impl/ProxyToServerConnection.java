@@ -572,7 +572,7 @@ public class ProxyToServerConnection extends ProxyConnection<HttpResponse> {
             }        	
         	
             MitmManager mitmManager = proxyServer.getMitmManager();
-            boolean isMitmEnabled = mitmManager != null;
+            boolean isMitmEnabled = mitmManager != null && mitmManager.useForRequest(initialRequest, this.clientConnection.ctx);
 
             if (isMitmEnabled) {
                 // When MITM is enabled and when chained proxy is set up, remoteAddress

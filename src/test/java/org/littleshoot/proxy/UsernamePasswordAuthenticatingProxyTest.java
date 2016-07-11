@@ -1,5 +1,8 @@
 package org.littleshoot.proxy;
 
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.handler.codec.http.HttpRequest;
+
 /**
  * Tests a single proxy that requires username/password authentication.
  */
@@ -24,7 +27,7 @@ public class UsernamePasswordAuthenticatingProxyTest extends BaseProxyTest
     }
 
     @Override
-    public boolean authenticate(String userName, String password) {
+    public boolean authenticate(HttpRequest originalRequest, String userName, String password, ChannelHandlerContext ctx) {
         return getUsername().equals(userName) && getPassword().equals(password);
     }
 

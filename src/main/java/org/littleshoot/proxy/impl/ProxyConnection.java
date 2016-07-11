@@ -70,7 +70,6 @@ abstract class ProxyConnection<I extends HttpObject> extends SimpleChannelInboun
 
     protected volatile ChannelHandlerContext ctx;
     protected volatile Channel channel;
-    protected AtomicReference<String> userName = new AtomicReference<String>();
 
     private volatile ConnectionState currentState;
     private volatile boolean tunneling = false;
@@ -573,7 +572,7 @@ abstract class ProxyConnection<I extends HttpObject> extends SimpleChannelInboun
      * @return
      */
     protected HttpFilters getHttpFiltersFromProxyServer(HttpRequest httpRequest) {
-        return proxyServer.getFiltersSource().filterRequest(httpRequest, userName.get(), ctx);
+        return proxyServer.getFiltersSource().filterRequest(httpRequest, ctx);
     }
 
     ProxyConnectionLogger getLOG() {
